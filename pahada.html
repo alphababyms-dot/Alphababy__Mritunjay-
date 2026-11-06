@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2 से 40 तक पहाड़ा</title>
+<style>
+body{font-family:system-ui; background:#FFECD1; margin:0; padding:0; text-align:center;}
+.header{background:#ff8c1a; color:white; padding:20px 15px; border-radius:0 0 30px 30px;}
+.header h1{margin:0; font-size:32px;}
+.grid{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; padding:15px;}
+.num{background:#fff; border-radius:12px; padding:14px 0; font-size:22px; font-weight:800; box-shadow:0 3px 0 #ddd; cursor:pointer;}
+.num:nth-child(3n){background:#4da6ff; color:white;}
+.num:nth-child(3n+1){background:#ff8c1a; color:white;}
+.num:nth-child(3n+2){background:#ffca3a;}
+#box{display:none; background:white; margin:15px; border-radius:20px; padding:15px;}
+#box table{width:100%; font-size:20px;}
+#box td{padding:10px; border-bottom:1px solid #eee;}
+</style>
+</head>
+<body>
+<div class="header"><h1>2 से 40 तक पहाड़ा</h1><small>अपना पहाड़ा चुनो • मजेदार सीखो!</small></div>
+<div class="grid" id="grid"></div>
+<div id="box"><h2 id="t"></h2><table id="tbl"></table><br><button onclick="speakAgain()" style="padding:10px 20px; background:#ff8c1a; color:white; border:none; border-radius:10px;">🔊 सुनो</button></div>
+<script>
+let current=2;
+const grid=document.getElementById('grid');
+for(let i=2;i<=40;i++){let d=document.createElement('div');d.className='num';d.innerText=i;d.onclick=()=>show(i);grid.appendChild(d);}
+function show(n){current=n;document.getElementById('box').style.display='block';document.getElementById('t').innerText=n+' का पहाड़ा';let h='';for(let j=1;j<=10;j++){h+=`<tr><td>${n} x ${j}</td><td>=</td><td><b>${n*j}</b></td></tr>`;}document.getElementById('tbl').innerHTML=h;window.scrollTo(0,400);speakAgain();}
+function speakAgain(){let u=new SpeechSynthesisUtterance(current+' का पहाड़ा');u.lang='hi-IN';speechSynthesis.speak(u);}
+</script>
+</body>
+</html>
