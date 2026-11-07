@@ -3,6 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA BABY | HACKER LOGIN</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Share Tech Mono',monospace}
+body{background:#000;color:#00ff41;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+body::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,255,65,0.03) 0px,transparent 2px,transparent 4px);pointer-events:none}
+canvas{position:absolute;top:0;left:0;z-index:0;opacity:0.2}
+.box{position:relative;z-index:2;background:rgba(0,0,0,0.85);border:2px solid #00ff41;width:100%;max-width:420px;padding:35px;border-radius:10px;box-shadow:0 0 20px #00ff41, inset 0 0 20px rgba(0,255,65,0.1);text-align:center}
+.logo{font-size:36px;font-weight:900;letter-spacing:3px;text-shadow:0 0 10px #00ff41;animation:glitch 2s infinite}
+.logo span{color:#fff}
+.sub{color:#00ff41;opacity:0.7;margin-bottom:20px;font-size:13px;letter-spacing:2px}
+input{width:100%;padding:14px;background:#000;border:1.5px solid #00ff41;color:#00ff41;border-radius:5px;margin:12px 0;font-size:16px;outline:none;box-shadow:0 0 8px rgba(0,255,65,0.3)}
+input::placeholder{color:#00ff41;opacity:0.4}
+.btn{width:100%;padding:13px;border:none;border-radius:5px;font-size:15px;font-weight:700;cursor:pointer;margin:8px 0;letter-spacing:1px;transition:0.3s}
+.btn-green{background:#00ff41;color:#000;box-shadow:0 0 15px #00ff41}.btn-green:hover{box-shadow:0 0 25px #00ff41;transform:scale(1.02)}
+.btn-blue{background:#000;color:#00ff41;border:1.5px solid #00ff41}
+.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.btn-wa{background:#25D366;color:#fff}
+.links{display:flex;gap:10px;margin-top:15px}
+.links a{flex:1;text-decoration:none;padding:10px;border-radius:5px;font-size:13px;font-weight:700;text-align:center}
+.note{border:1px dashed #00ff41;padding:10px;border-radius:5px;font-size:11px;color:#00ff41;opacity:0.7;margin:15px 0;text-align:left}
+@keyframes glitch{0%{text-shadow:0 0 10px #00ff41}20%{text-shadow:2px 0 #ff00ff,-2px 0 #00ffff}40%{text-shadow:0 0 10px #00ff41}100%{text-shadow:0 0 10px #00ff41}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="box">
+<div class="logo">ALPHA <span>BABY</span></div>
+<p class="sub">Mritunjay's Brand | SYSTEM SECURED</p>
+
+<div id="step1">
+<input type="tel" id="phone" placeholder="> Enter Your Number_" maxlength="10">
+<button class="btn btn-green" onclick="requestKey()">> REQUEST ACCESS KEY [WHATSAPP]</button>
+<div class="note">> TARGET: Mritunjay [8252004274]<br>> PROTOCOL: WhatsApp Encrypted Request<br>> Access only with ADMIN KEY</div>
+</div>
+
+<div id="step2" style="display:none">
+<div style="background:rgba(0,255,65,0.1);border:1px solid #00ff41;padding:8px;border-radius:5px;font-size:12px;margin-bottom:10px">> REQUEST SENT... WAITING FOR ADMIN KEY_</div>
+<input type="text" id="keyInput" placeholder="> Enter Access Key_">
+<button class="btn btn-green" onclick="verifyKey()">> VERIFY & DECRYPT LOGIN</button>
+<button class="btn btn-blue" onclick="back()">> BACK</button>
+</div>
+
+<div class="links">
+<a href="https://www.instagram.com/alpha_baby_sir/" target="_blank" class="btn-insta">📸 INSTA</a>
+<a href="https://wa.me/918252004274" target="_blank" class="btn-wa">💬 WHATSAPP</a>
+</div>
+
+<p style="font-size:10px;opacity:0.5;margin-top:15px">> insta: @alpha_baby_sir_ | wa: 8252004274</p>
+</div>
+
+<script>
+// Matrix Rain Effect
+const canvas=document.getElementById('c');const ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let letters="ALPHABABY01";letters=letters.split("");let fontSize=14,columns=canvas.width/fontSize;let drops=[];for(let x=0;x<columns;x++)drops[x]=1;
+function draw(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#0F0";ctx.font=fontSize+"px monospace";for(let i=0;i<drops.length;i++){let text=letters[Math.floor(Math.random()*letters.length)];ctx.fillText(text,i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}requestAnimationFrame(draw);}draw();
+
+// Secure Keys - Hidden
+const _k=["QWxQSEEyMDI2","QWxQSEFCQUJZ","TVJJVFVOQUpBWTEyMw=="];
+const ADMIN_NUMBER="918252004274";
+function requestKey(){
+let phone=document.getElementById('phone').value.trim();
+if(phone.length<10){alert("> ERROR: Enter Valid Number!");return;}
+let msg=`⚠️ ALPHA BABY ACCESS REQUEST ⚠️%0A%0ANumber: ${phone}%0AMujhe Access Key de do Mritunjay Bhai!`;
+window.open(`https://wa.me/${ADMIN_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+document.getElementById('step1').style.display='none';
+document.getElementById('step2').style.display='block';
+}
+function verifyKey(){
+let key=document.getElementById('keyInput').value.trim().toUpperCase();
+let valid=_k.map(x=>atob(x).toUpperCase());
+if(valid.includes(key)){
+document.body.innerHTML="<div style='background:#000;color:#0f0;height:100vh;display:flex;align-items:center;justify-content:center;font-family:monospace;text-align:center'><div><h1 style='text-shadow:0 0 20px #0f0'>ACCESS GRANTED 👑</h1><br><p>> Welcome to ALPHA BABY SYSTEM</p><br><a href='https://www.instagram.com/alpha_baby_sir/' style='color:#000;background:#0f0;padding:10px 20px;text-decoration:none;border-radius:5px'>ENTER INSTAGRAM</a></div></div>";
+}else{
+alert("> ACCESS DENIED! Invalid Key. Contact Admin.");
+}
+}
+function back(){
+document.getElementById('step1').style.display='block';
+document.getElementById('step2').style.display='none';
+}
+</script>
+</body>
+</html<
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALPHA BABY</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
