@@ -84,17 +84,142 @@ window.addEventListener('resize',()=>{resize();cols=Math.floor(c.width/fs);drops
     </nav>
   </header>
 <!-- APP INSTALL BUTTON -->
-<div style="background:#0a1a0a; padding:22px; text-align:center; border-radius:15px; margin:20px 0; border:1px solid #00ff41; box-shadow:0 0 15px #00ff41;">
-<h3 style="color:#00ff41; margin:0 0 12px 0;">⚡ Alpha Baby - Contact Karo!</h3>
-<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-<a href="https://www.instagram.com/alpha_baby_sir/" target="_blank" style="text-decoration:none;">
-<button style="background:#00ff41; color:#000; padding:12px 25px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer;">📸 Instagram</button>
-</a>
-<a href="https://wa.me/918252004274" target="_blank" style="text-decoration:none;">
-<button style="background:#25D366; color:#fff; padding:12px 25px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer;">💬 WhatsApp</button>
-</a>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA BABY - Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:system-ui}
+#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
+.login-box{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:rgba(10,10,10,0.95);border:2px solid #00ff41;border-radius:15px;padding:25px;width:100%;max-width:360px;box-shadow:0 0 30px #00ff4133;text-align:center}
+.card h1{font-size:32px} .card h1 span{color:#00ff41}
+input{width:100%;background:#111;border:1px solid #00ff4133;color:#fff;padding:12px;border-radius:8px;margin:8px 0}
+.btn{width:100%;padding:12px;border-radius:8px;background:#00ff41;color:#000;font-weight:bold;border:none;margin-top:10px;font-size:16px}
+.tab{display:flex;gap:10px;margin:15px 0}
+.tab button{flex:1;padding:8px;background:#111;border:1px solid #00ff4133;color:#aaa;border-radius:6px}
+.tab button.active{background:#00ff41;color:#000;border-color:#00ff41}
+.hidden{display:none}
+.main-content{position:relative;z-index:2}
+header{position:relative;z-index:2;display:flex;gap:12px;justify-content:center;padding:12px;background:rgba(0,0,0,0.8);border-bottom:1px solid #00ff4122}
+header a{color:#00ff41;text-decoration:none;font-size:13px}
+.wrap{position:relative;z-index:2;background:rgba(15,15,15,0.9);margin:12px;border-radius:12px;padding:15px;border:1px solid #00ff4122}
+.status-card{background:rgba(0,255,65,0.08);border-left:3px solid #00ff41;padding:10px;margin:8px 0;border-radius:8px;text-align:left}
+</style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-box">
+<div class="card">
+<h1>ALPHA <span>BABY</span></h1>
+<p style="color:#888;font-size:13px;margin:10px 0">Login karke andar jao</p>
+
+<div class="tab">
+<button id="tabEmail" class="active" onclick="switchTab('email')">Email</button>
+<button id="tabPhone" onclick="switchTab('phone')">Number</button>
+</div>
+
+<div id="emailBox">
+<input id="emailInp" type="email" placeholder="Email: alpha@gmail.com">
+<input id="passInp" type="password" placeholder="Password">
+</div>
+
+<div id="phoneBox" class="hidden">
+<input id="phoneInp" type="tel" placeholder="Number: 8252004274">
+<input id="otpInp" type="text" placeholder="OTP: 1234 (demo me kuch bhi daalo)">
+</div>
+
+<button class="btn" onclick="doLogin()">LOGIN / SIGN UP 🚀</button>
+<p style="font-size:11px;color:#666;margin-top:12px">Demo Login hai - koi bhi Email/Number daalo, login ho jayega.<br>Asli login ke liye Firebase lagana padega.</p>
 </div>
 </div>
+
+<!-- MAIN APP (Login ke baad dikhega) -->
+<div id="mainPage" class="hidden">
+<header>
+<a href="#" onclick="logout()">Logout</a>
+<a id="userShow" href="#">Hi, User</a>
+</header>
+
+<div class="main-content">
+<div class="wrap" style="text-align:center">
+<h2 style="color:#00ff41">Welcome <span id="userName">Alpha</span>! 🔥</h2>
+</div>
+
+<div class="wrap">
+<h3 style="color:#00ff41">📝 Status Daalo</h3>
+<textarea id="statusInp" placeholder="Apna status likho..." style="width:100%;background:#111;border:1px solid #00ff41;color:#fff;padding:10px;border-radius:8px"></textarea>
+<button class="btn" onclick="postStatus()">POST KARO</button>
+</div>
+
+<div class="wrap">
+<h3 style="color:#00ff41">🔥 Status Wall</h3>
+<div id="wall"></div>
+</div>
+</div>
+</div>
+
+<script>
+// MATRIX BG
+const c=document.getElementById("matrix");const ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}resize();
+let cols=Math.floor(c.width/14);let drops=new Array(cols).fill(1);
+setInterval(()=>{ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#00ff41";ctx.font="14px monospace";for(let i=0;i<drops.length;i++){ctx.fillText("01ALPHA"[Math.random()*7|0],i*14,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}},35);
+
+// LOGIN LOGIC
+function switchTab(t){
+ document.getElementById('tabEmail').classList.toggle('active',t=='email');
+ document.getElementById('tabPhone').classList.toggle('active',t=='phone');
+ document.getElementById('emailBox').classList.toggle('hidden',t!='email');
+ document.getElementById('phoneBox').classList.toggle('hidden',t!='phone');
+}
+function doLogin(){
+ let user="";
+ if(!document.getElementById('emailBox').classList.contains('hidden')){
+   user=document.getElementById('emailInp').value.trim();
+   if(!user){alert('Email likho!');return;}
+ }else{
+   user=document.getElementById('phoneInp').value.trim();
+   if(!user){alert('Number likho!');return;}
+ }
+ localStorage.setItem('alpha_user',user);
+ showMain(user);
+}
+function showMain(user){
+ document.getElementById('loginPage').classList.add('hidden');
+ document.getElementById('mainPage').classList.remove('hidden');
+ document.getElementById('userName').innerText=user.split('@')[0];
+ document.getElementById('userShow').innerText='Hi, '+user.split('@')[0];
+ render();
+}
+function logout(){localStorage.removeItem('alpha_user');location.reload();}
+let saved=localStorage.getItem('alpha_user');
+if(saved){showMain(saved);}
+
+// STATUS WALL
+let statuses=JSON.parse(localStorage.getItem('alpha_status')||'[]');
+function render(){
+ const wall=document.getElementById('wall');
+ if(statuses.length==0) wall.innerHTML='<p style="color:#555">Koi status nahi</p>';
+ else wall.innerHTML=statuses.map(s=>`<div class="status-card"><b>${s.name}</b><br>${s.text}<br><small style="color:#666">${s.time}</small></div>`).join('');
+}
+function postStatus(){
+ const text=document.getElementById('statusInp').value.trim();
+ if(!text){alert('Status likho!');return;}
+ const user=localStorage.getItem('alpha_user')||'User';
+ statuses.unshift({name:user.split('@')[0],text,time:new Date().toLocaleString('hi-IN')});
+ localStorage.setItem('alpha_status',JSON.stringify(statuses));
+ document.getElementById('statusInp').value='';
+ render();
+}
+</script>
+</body>
+</html>
   <main>
     <section class="hero wrap" id="home">
       <div>
