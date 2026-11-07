@@ -1,265 +1,85 @@
-<!DOCTYPE html><html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ALPHA BABY - OTP Login</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#000;color:#fff;font-family:system-ui}#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}.box{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{background:rgba(10,10,10,0.95);border:2px solid #00ff41;border-radius:15px;padding:25px;width:100%;max-width:360px;text-align:center;box-shadow:0 0 20px #00ff4133}h1 span{color:#00ff41}input{width:100%;background:#111;border:1px solid #00ff41;color:#fff;padding:13px;border-radius:8px;margin:8px 0;font-size:16px}.btn{width:100%;padding:13px;border-radius:8px;background:#00ff41;color:#000;font-weight:bold;border:none;margin-top:10px;font-size:16px}.hidden{display:none}.wrap{position:relative;z-index:2;background:rgba(15,15,15,0.9);margin:12px;border-radius:12px;padding:15px;border:1px solid #00ff4122}</style></head><body><canvas id="matrix"></canvas><div id="loginPage" class="box"><div class="card"><h1>ALPHA <span>BABY</span></h1><p style="color:#888;margin:10px 0">Only Number + OTP Login</p><div id="step1"><input id="phoneInp" type="tel" placeholder="Number: 8252004274"><button class="btn" onclick="sendOtp()">OTP BHEJO 📲</button></div><div id="step2" class="hidden"><p style="color:#00ff41">OTP bhej diya <span id="showNum"></span> pe<br>Demo OTP: <b>123456</b></p><input id="otpInp" type="text" placeholder="OTP: 123456 likho"><button class="btn" onclick="verifyOtp()">VERIFY & LOGIN 🚀</button></div></div></div><div id="mainPage" class="hidden box"><div class="card"><h2 style="color:#00ff41">Welcome! 🔥</h2><p id="userShow"></p><button class="btn" onclick="localStorage.clear();location.reload()">Logout</button></div></div><script>const c=document.getElementById("matrix");const ctx=c.getContext("2d");function R(){c.width=innerWidth;c.height=innerHeight}R();let cols=Math.floor(c.width/14);let drops=new Array(cols).fill(1);setInterval(()=>{ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#00ff41";ctx.font="14px monospace";for(let i=0;i<drops.length;i++){ctx.fillText("01"[Math.random()*2|0],i*14,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}},35);function sendOtp(){let p=document.getElementById('phoneInp').value.trim();if(p.length<10)return alert('Sahi number likho!');localStorage.setItem('temp_phone',p);document.getElementById('showNum').innerText=p;document.getElementById('step1').classList.add('hidden');document.getElementById('step2').classList.remove('hidden');alert('Demo OTP: 123456')}function verifyOtp(){let o=document.getElementById('otpInp').value.trim();if(o=='123456'){localStorage.setItem('alpha_user',localStorage.getItem('temp_phone'));location.reload()}else alert('Galat OTP! Sahi OTP: 123456')}let saved=localStorage.getItem('alpha_user');if(saved){document.getElementById('loginPage').classList.add('hidden');document.getElementById('mainPage').classList.remove('hidden');document.getElementById('userShow').innerText='Hi, '+saved}</script></body></html>
-<head<
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
-<title>ALPHA BABY - Official</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA BABY - Login</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
-header{position:relative;z-index:2;display:flex;gap:15px;justify-content:center;padding:15px;background:rgba(0,0,0,0.7);border-bottom:1px solid #00ff4122}
-header a{color:#00ff41;text-decoration:none;font-weight:bold;font-size:14px}
-.hero{position:relative;z-index:2;text-align:center;padding:60px 20px 30px}
-.hero h1{font-size:55px;line-height:0.9}
-.hero h1 span:first-child{color:#fff}
-.hero h1 span:last-child{color:#00ff41;text-shadow:0 0 20px #00ff41}
-.hero p{color:#00ff41;margin:25px 0;font-size:22px;font-weight:bold}
-.btn{display:block;width:90%;max-width:320px;margin:15px auto;padding:16px;border-radius:15px;text-align:center;text-decoration:none;font-weight:bold;font-size:20px;border:2px solid #00ff41;box-shadow:0 0 15px #00ff4133}
-.primary{background:rgba(0,255,65,0.1);color:#fff}
-.secondary{background:rgba(0,255,65,0.1);color:#fff}
-.wrap{position:relative;z-index:2;background:rgba(10,10,10,0.8);margin:20px;border-radius:15px;padding:20px;border:1px solid #00ff4122;text-align:center}
-footer{position:relative;z-index:2;text-align:center;padding:30px;color:#666;font-size:12px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:#fff;width:100%;max-width:400px;padding:35px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center}
+.logo{font-size:32px;font-weight:900;margin-bottom:5px}
+.logo span{color:#667eea}
+.sub{color:#666;margin-bottom:25px;font-size:14px}
+input{width:100%;padding:14px;border:2px solid #eee;border-radius:10px;margin:10px 0;font-size:16px;outline:none}
+input:focus{border-color:#667eea}
+.btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin:8px 0;transition:0.3s}
+.btn-green{background:#25D366;color:#fff}
+.btn-blue{background:#667eea;color:#fff}
+.btn-green:hover{transform:scale(1.02)}
+.btn-blue:hover{transform:scale(1.02)}
+.note{background:#f0f4ff;padding:12px;border-radius:8px;font-size:12px;color:#555;margin:15px 0;text-align:left}
+.key-info{background:#fff3cd;padding:10px;border-radius:8px;font-size:13px;margin:10px 0}
 </style>
 </head>
 <body>
-<canvas id="matrix"></canvas>
+<div class="box">
+<div class="logo">ALPHA <span>BABY</span></div>
+<p class="sub">Mritunjay's Brand</p>
 
-<header>
-<a href="#">✦ ALPHA BABY</a>
-<a href="#about">बारे में</a>
-<a href="#contact">संपर्क</a>
-</header>
-
-<main>
-<section class="hero">
-<h1><span>I'm Alpha</span><br><span>Baby</span></h1>
-<p>नमस्ते! मेरी वेबसाइट पर<br>आपका स्वागत है।</p>
-</section>
-
-<section class="wrap" id="contact">
-<a class="btn primary" href="https://www.instagram.com/alpha_baby_sir/" target="_blank">📸 Instagram</a>
-<a class="btn secondary" href="https://wa.me/918252004274" target="_blank">💬 WhatsApp</a>
-</section>
-
-<section class="wrap" id="about">
-<p style="color:#aaa">Developer • Cybersecurity • Creator</p>
-<p style="margin-top:10px">मैं Alpha Baby हूँ। यह मेरी पर्सनल वेबसाइट है।</p>
-</section>
-</main>
-
-<footer>© <span id="year"></span> Alpha Baby • Made with ❤️<br>> portfolio v1.0 • secure • online</footer>
-
-<script>
-const c=document.getElementById("matrix");
-const ctx=c.getContext("2d");
-function resize(){c.width=innerWidth;c.height=innerHeight;}
-resize();
-const chars="01ALPHABABYMRITUNJAY";
-const fs=14;
-let cols=Math.floor(c.width/fs);
-let drops=new Array(cols).fill(1);
-function draw(){
- ctx.fillStyle="rgba(0,0,0,0.08)";
- ctx.fillRect(0,0,c.width,c.height);
- ctx.fillStyle="#00ff41";
- ctx.font=fs+"px monospace";
- for(let i=0;i<drops.length;i++){
-   ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,drops[i]*fs);
-   if(drops[i]*fs>c.height && Math.random()>0.975) drops[i]=0;
-   drops[i]++;
- }
-}
-setInterval(draw,35);
-document.getElementById('year').textContent=new Date().getFullYear();
-window.addEventListener('resize',()=>{resize();cols=Math.floor(
-.tab button{flex:1;padding:8px;background:#111;border:1px solid #00ff4133;color:#aaa;border-radius:6px}
-.tab button.active{background:#00ff41;color:#000;border-color:#00ff41}
-.hidden{display:none}
-.main-content{position:relative;z-index:2}
-header{position:relative;z-index:2;display:flex;gap:12px;justify-content:center;padding:12px;background:rgba(0,0,0,0.8);border-bottom:1px solid #00ff4122}
-header a{color:#00ff41;text-decoration:none;font-size:13px}
-.wrap{position:relative;z-index:2;background:rgba(15,15,15,0.9);margin:12px;border-radius:12px;padding:15px;border:1px solid #00ff4122}
-.status-card{background:rgba(0,255,65,0.08);border-left:3px solid #00ff41;padding:10px;margin:8px 0;border-radius:8px;text-align:left}
-</style>
-</head>
-<body>
-<canvas id="matrix"></canvas>
-
-<!-- LOGIN PAGE -->
-<div id="loginPage" class="login-box">
-<div class="card">
-<h1>ALPHA <span>BABY</span></h1>
-<p style="color:#888;font-size:13px;margin:10px 0">Login karke andar jao</p>
-
-<div class="tab">
-<button id="tabEmail" class="active" onclick="switchTab('email')">Email</button>
-<button id="tabPhone" onclick="switchTab('phone')">Number</button>
+<div id="step1">
+<input type="tel" id="phone" placeholder="Apna Number likho - 8252004274" maxlength="10">
+<button class="btn btn-green" onclick="requestKey()">📱 Admin Se Key Mango (WhatsApp)</button>
+<div class="note">👉 Button dabate hi Mritunjay (8252004274) ke WhatsApp pe message jayega. Wo aapko Key dega.</div>
 </div>
 
-<div id="emailBox">
-<input id="emailInp" type="email" placeholder="Email: alpha@gmail.com">
-<input id="passInp" type="password" placeholder="Password">
+<div id="step2" style="display:none">
+<div class="key-info">✅ Request bhej diya! Ab Admin se Key leke niche likho.</div>
+<input type="text" id="keyInput" placeholder="Admin ne jo Key diya wo likho - ex: ALPHA2026">
+<button class="btn btn-blue" onclick="verifyKey()">🚀 VERIFY & LOGIN</button>
+<button class="btn" style="background:#eee" onclick="back()">⬅️ Wapas</button>
 </div>
 
-<div id="phoneBox" class="hidden">
-<input id="phoneInp" type="tel" placeholder="Number: 8252004274">
-<input id="otpInp" type="text" placeholder="OTP: 1234 (demo me kuch bhi daalo)">
+<div class="note">
+<b>Admin Keys (Sirf aapko pata hai):</b><br>
+• ALPHA2026<br>
+• ALPHABABY<br>
+• MRITUNJAY123<br>
+Aap chahe to code me badal sakte ho.
 </div>
 
-<button class="btn" onclick="doLogin()">LOGIN / SIGN UP 🚀</button>
-<p style="font-size:11px;color:#666;margin-top:12px">Demo Login hai - koi bhi Email/Number daalo, login ho jayega.<br>Asli login ke liye Firebase lagana padega.</p>
-</div>
-</div>
-
-<!-- MAIN APP (Login ke baad dikhega) -->
-<div id="mainPage" class="hidden">
-<header>
-<a href="#" onclick="logout()">Logout</a>
-<a id="userShow" href="#">Hi, User</a>
-</header>
-
-<div class="main-content">
-<div class="wrap" style="text-align:center">
-<h2 style="color:#00ff41">Welcome <span id="userName">Alpha</span>! 🔥</h2>
-</div>
-
-<div class="wrap">
-<h3 style="color:#00ff41">📝 Status Daalo</h3>
-<textarea id="statusInp" placeholder="Apna status likho..." style="width:100%;background:#111;border:1px solid #00ff41;color:#fff;padding:10px;border-radius:8px"></textarea>
-<button class="btn" onclick="postStatus()">POST KARO</button>
-</div>
-
-<div class="wrap">
-<h3 style="color:#00ff41">🔥 Status Wall</h3>
-<div id="wall"></div>
-</div>
-</div>
 </div>
 
 <script>
-// MATRIX BG
-const c=document.getElementById("matrix");const ctx=c.getContext("2d");
-function resize(){c.width=innerWidth;c.height=innerHeight}resize();
-let cols=Math.floor(c.width/14);let drops=new Array(cols).fill(1);
-setInterval(()=>{ctx.fillStyle="rgba(0,0,0,0.08)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#00ff41";ctx.font="14px monospace";for(let i=0;i<drops.length;i++){ctx.fillText("01ALPHA"[Math.random()*7|0],i*14,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}},35);
+const VALID_KEYS = ["ALPHA2026","ALPHABABY","MRITUNJAY123","ALPHA123","123456"];
+const ADMIN_NUMBER = "918252004274";
 
-// LOGIN LOGIC
-function switchTab(t){
- document.getElementById('tabEmail').classList.toggle('active',t=='email');
- document.getElementById('tabPhone').classList.toggle('active',t=='phone');
- document.getElementById('emailBox').classList.toggle('hidden',t!='email');
- document.getElementById('phoneBox').classList.toggle('hidden',t!='phone');
+function requestKey(){
+let phone = document.getElementById('phone').value.trim();
+if(phone.length < 10){ alert("Pehle sahi number likho!"); return; }
+let msg = `Hi Mritunjay Bhai! 👋%0AALPHA BABY me login karna hai.%0A%0AMera Number: ${phone}%0A%0AMujhe login Key de do please! 🙏`;
+let url = `https://wa.me/${ADMIN_NUMBER}?text=${msg}`;
+window.open(url, '_blank');
+document.getElementById('step1').style.display='none';
+document.getElementById('step2').style.display='block';
+localStorage.setItem('req_phone', phone);
 }
-function doLogin(){
- let user="";
- if(!document.getElementById('emailBox').classList.contains('hidden')){
-   user=document.getElementById('emailInp').value.trim();
-   if(!user){alert('Email likho!');return;}
- }else{
-   user=document.getElementById('phoneInp').value.trim();
-   if(!user){alert('Number likho!');return;}
- }
- localStorage.setItem('alpha_user',user);
- showMain(user);
-}
-function showMain(user){
- document.getElementById('loginPage').classList.add('hidden');
- document.getElementById('mainPage').classList.remove('hidden');
- document.getElementById('userName').innerText=user.split('@')[0];
- document.getElementById('userShow').innerText='Hi, '+user.split('@')[0];
- render();
-}
-function logout(){localStorage.removeItem('alpha_user');location.reload();}
-let saved=localStorage.getItem('alpha_user');
-if(saved){showMain(saved);}
 
-// STATUS WALL
-let statuses=JSON.parse(localStorage.getItem('alpha_status')||'[]');
-function render(){
- const wall=document.getElementById('wall');
- if(statuses.length==0) wall.innerHTML='<p style="color:#555">Koi status nahi</p>';
- else wall.innerHTML=statuses.map(s=>`<div class="status-card"><b>${s.name}</b><br>${s.text}<br><small style="color:#666">${s.time}</small></div>`).join('');
+function verifyKey(){
+let key = document.getElementById('keyInput').value.trim().toUpperCase();
+if(VALID_KEYS.includes(key)){
+alert("✅ Login Successful! Welcome to ALPHA BABY ❤️");
+localStorage.setItem('alpha_user', localStorage.getItem('req_phone'));
+// Yahan apni dusri website ka link daal do
+window.location.href = "https://alphababyms-dot.github.io/Alphababy_Mritunjay-/dashboard.html";
+} else {
+alert("❌ Galat Key! Admin se sahi Key lo. Aapke keys: ALPHA2026, ALPHABABY, MRITUNJAY123");
 }
-function postStatus(){
- const text=document.getElementById('statusInp').value.trim();
- if(!text){alert('Status likho!');return;}
- const user=localStorage.getItem('alpha_user')||'User';
- statuses.unshift({name:user.split('@')[0],text,time:new Date().toLocaleString('hi-IN')});
- localStorage.setItem('alpha_status',JSON.stringify(statuses));
- document.getElementById('statusInp').value='';
- render();
+}
+function back(){
+document.getElementById('step1').style.display='block';
+document.getElementById('step2').style.display='none';
 }
 </script>
-</body>
-</html>
-      <div>
-        <span class="eyebrow">✨ Welcome to my official website</span>
-        <h1>I'm <span>Alpha Baby</span></h1>
-        <p class="intro">नमस्ते! मेरी वेबसाइट पर आपका स्वागत है। यहाँ आप मेरे बारे में जान सकते हैं, मेरे काम को देख सकते हैं और सोशल मीडिया पर मुझसे जुड़ सकते हैं।</p>
-        <div class="actions">
-          <a class="btn primary" href="#about">मेरे बारे में जानें ↗</a>
-          <a class="btn secondary" href="#contact">मुझसे संपर्क करें</a>
-        </div>
-      </div>
-      <div class="portrait" aria-label="Profile photo placeholder">
-        <div class="portrait-inner">
-          <div class="avatar">👑</div>
-          <strong>ALPHA BABY</strong>
-          <small>YOUR NAME • YOUR STYLE</small>
-        </div>
-      </div>
-    </section>
-
-    
-      <p class="sub">मैं Alpha Baby हूँ। यह मेरी पर्सनल वेबसाइट है। यहाँ मैं अपनी पहचान, रुचियाँ और अपने सोशल लिंक शेयर कर सकता हूँ। इस टेक्स्ट को अपनी जानकारी के अनुसार बदल सकते हो।</p>
-    </section>
-
-    <section class="wrap" id="skills">
-      <h2 class="section-title">मेरी रुचियाँ</h2>
-      <p class="sub">वे चीज़ें जिन्हें मैं सीखना और शेयर करना पसंद करता हूँ।</p>
-      <div class="cards">
-        <article class="card"><div class="icon">💻</div><h3>Technology</h3><p>नई टेक्नोलॉजी, वेबसाइट बनाना और डिजिटल टूल्स सीखना।</p></article>
-        <article class="card"><div class="icon">🎨</div><h3>Creative Design</h3><p>प्रोफाइल फोटो, पोस्टर और सोशल मीडिया के लिए क्रिएटिव डिजाइन।</p></article>
-        <article class="card"><div class="icon">📱</div><h3>Social Media</h3><p>ऑनलाइन कंटेंट और सोशल मीडिया पर लोगों से जुड़ना।</p></article>
-      </div>
-    </section>
-
-    <section class="wrap" id="contact">
-      <div class="contact">
-        <div><h2 class="section-title">चलो जुड़ते हैं!</h2><p class="sub" style="margin-bottom:0">अपने सोशल मीडिया लिंक यहाँ जोड़ें।</p></div>
-        <div class="actions" style="margin-top:0">
-         <a class="btn primary" href="https://www.instagram.com/alpha_baby_sir/" target="_blank" rel="noopener">Instagram - alpha_baby_sir</a>
-<a class="btn secondary" href="https://wa.me/918252004274" target="_blank" rel="noopener" style="background:#25D366; border-color:#25D366; color:#fff;">WhatsApp - 8252004274</a>
-        </div>
-      </div>
-    </section<
-
-<footer>© <span id="year"></span> Alpha Baby • Made with ❤️</footer>
-
-<canvas id="matrix"></canvas>
-
-<script>
-const c=document.getElementById("matrix");
-const ctx=c.getContext("2d");
-c.width=innerWidth;
-c.height=innerHeight;
-const chars="01 ALPHA BABY MRITUNJAY";
-const fs=14;
-const cols=Math.floor(c.width/fs);
-const drops=new Array(cols).fill(1);
-function draw(){
- ctx.fillStyle="rgba(0,0,0,0.05)";
- ctx.fillRect(0,0,c.width,c.height);
- ctx.fillStyle="#00ff41";
- ctx.font=fs+"px monospace";
- for(let i=0;i<drops.length;i++){
-   ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,drops[i]*fs);
-   if(drops[i]*fs>c.height && Math.random()>0.975) drops[i]=0;
-   drops[i]++;
- }
-}
-setInterval(draw,35);
-document.getElementById('year').textContent=new Date().getFullYear();
-window.addEventListener('resize',()=>{c.width=innerWidth;c.height=innerHeight;});
-</script>
-
 </body>
 </html>
