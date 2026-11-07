@@ -1,4 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALPHA BABY | PRIVATE SYSTEM</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Share Tech Mono',monospace}
+body{background:#000;color:#00ff41;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+canvas{position:absolute;top:0;left:0;z-index:0;opacity:0.18}
+.box{position:relative;z-index:2;background:rgba(0,0,0,0.92);border:2px solid #00ff41;width:100%;max-width:420px;padding:35px;border-radius:12px;box-shadow:0 0 25px #00ff41, inset 0 0 15px rgba(0,255,65,0.1);text-align:center}
+.logo{font-size:36px;font-weight:900;letter-spacing:3px;text-shadow:0 0 12px #00ff41;animation:glitch 2s infinite}
+.logo span{color:#fff}
+.sub{opacity:0.6;font-size:11px;letter-spacing:2px;margin-bottom:20px}
+.counter{background:rgba(0,255,65,0.08);border:1px solid #00ff41;padding:8px;border-radius:5px;font-size:10px;margin-bottom:15px;text-align:left}
+input{width:100%;padding:14px;background:#000;border:1.5px solid #00ff41;color:#00ff41;border-radius:6px;margin:10px 0;font-size:15px;outline:none;box-shadow:0 0 10px rgba(0,255,65,0.2)}
+input::placeholder{color:#00ff41;opacity:0.4}
+.btn{width:100%;padding:13px;border:none;border-radius:6px;font-size:14px;font-weight:800;cursor:pointer;margin:8px 0;letter-spacing:1px}
+.btn-green{background:#00ff41;color:#000;box-shadow:0 0 18px #00ff41}
+.btn-blue{background:#000;color:#00ff41;border:1.5px solid #00ff41}
+.note{border:1px dashed #00ff41;padding:10px;border-radius:6px;font-size:11px;opacity:0.7;margin:12px 0;text-align:left;line-height:1.5}
+@keyframes glitch{0%{text-shadow:0 0 10px #00ff41}20%{text-shadow:2px 0 #ff00ff,-2px 0 #00ffff}40%{text-shadow:0 0 10px #00ff41}100%{text-shadow:0 0 10px #00ff41}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
 
+<div class="box">
+<div class="logo">ALPHA <span>BABY</span></div>
+<div class="sub">🔒 PRIVATE SYSTEM | MRITUNJAY'S BRAND</div>
+
+<div class="counter" id="visitCounter">> SCANNING VISITORS_</div>
+
+<div id="step1">
+<input type="tel" id="phone" placeholder="> ENTER YOUR NUMBER_" maxlength="10">
+<button class="btn btn-green" onclick="requestKey()">> REQUEST ACCESS KEY [WHATSAPP]</button>
+<div class="note">> TARGET: 8252004274<br>> STATUS: ENCRYPTED + TRACKING ACTIVE<br>> NOTE: Bina Key ke Insta/WhatsApp bhi nahi khulega</div>
+</div>
+
+<div id="step2" style="display:none">
+<div style="background:rgba(0,255,65,0.1);border:1px solid #00ff41;padding:8px;border-radius:5px;font-size:12px">> REQUEST LOGGED! WAITING FOR ADMIN KEY_</div>
+<input type="text" id="keyInput" placeholder="> ENTER ACCESS KEY_">
+<button class="btn btn-green" onclick="verifyKey()">> DECRYPT & LOGIN</button>
+<button class="btn btn-blue" onclick="back()">> BACK TO HOME</button>
+</div>
+</div>
+
+<script>
+// MATRIX EFFECT
+const canvas=document.getElementById('c');const ctx=canvas.getContext('2d');canvas.width=innerWidth;canvas.height=innerHeight;
+let letters="ALPHABABY01".split("");let drops=Array(Math.floor(canvas.width/14)).fill(1);
+function draw(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#00ff41";ctx.font="14px monospace";drops.forEach((y,i)=>{let t=letters[Math.floor(Math.random()*letters.length)];ctx.fillText(t,i*14,y*14);if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0;drops[i]++;});requestAnimationFrame(draw);}draw();
+
+// 🔐 KEYS HIDDEN
+const _k=["QWxQSEEyMDI2","QWxQSEFCQUJZ","TVJJVFVOQUpBWTEyMw=="];
+const ADMIN="918252004274";
+
+// --- TRACKING SYSTEM ---
+let visits = localStorage.getItem('alpha_visits') || 0;
+visits++; localStorage.setItem('alpha_visits', visits);
+document.getElementById('visitCounter').innerHTML = `> TOTAL VISITS: ${visits} | IP LOGGING: ON | TRACKING: ACTIVE`;
+
+// GOOGLE SHEET LINK - Yahan apna link dalo agar permanent tracking chahiye
+const SHEET_URL = "";
+
+function requestKey(){
+let p=document.getElementById('phone').value.trim();
+if(p.length<10){alert("> ERROR: Valid Number Likh!");return;}
+
+// LOCAL TRACKING SAVE
+let allUsers = JSON.parse(localStorage.getItem('alpha_all_users') || '[]');
+let timeNow = new Date().toLocaleString();
+let userData = {phone:p, time:timeNow, ip:"..."};
+allUsers.push(userData);
+localStorage.setItem('alpha_all_users', JSON.stringify(allUsers));
+
+// IP NIKALO + SHEET ME BHEJO
+fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
+  userData.ip = d.ip; userData.city = d.city;
+  localStorage.setItem('alpha_all_users', JSON.stringify(allUsers));
+  if(SHEET_URL){
+    fetch(`${SHEET_URL}?phone=${p}&ip=${d.ip}&city=${d.city}&time=${encodeURIComponent(timeNow)}`, {mode:'no-cors'});
+  }
+}).catch(()=>{});
+
+let msg=`🔥 NEW USER ALPHA BABY 🔥%0A%0A📱 Number: ${p}%0A🕒 Time: ${timeNow}%0A👁️ Total Visits: ${visits}%0A%0AKey mang raha hai!`;
+window.open(`https://wa.me/${ADMIN}?text=${msg}`,'_blank');
+document.getElementById('step1').style.display='none';
+document.getElementById('step2').style.display='block';
+}
+
+function verifyKey(){
+let v=document.getElementById('keyInput').value.trim().toUpperCase();
+let ok=_k.map(x=>atob(x).toUpperCase());
+if(ok.includes(v)){
+let allUsers = JSON.parse(localStorage.getItem('alpha_all_users') || '[]');
+let list = allUsers.slice(-15).reverse().map(u=>`> ${u.phone} | ${u.time} | ${u.ip||''}`).join('<br>') || '> No data yet';
+
+document.body.innerHTML=`<div style='position:relative;z-index:2;min-height:100vh;background:#000;display:flex;align-items:center;justify-content:center;padding:20px'>
+<div style='background:rgba(0,0,0,0.9);border:2px solid #00ff41;padding:25px;border-radius:12px;box-shadow:0 0 30px #00ff41;max-width:450px;width:100%;font-family:monospace;color:#00ff41'>
+<h1 style='font-size:26px;text-shadow:0 0 15px #00ff41;text-align:center'>ACCESS GRANTED 👑</h1>
+<div style='margin:15px 0;text-align:left;background:rgba(0,255,65,0.05);padding:12px;border-radius:6px;border:1px solid #00ff41;font-size:11px;max-height:200px;overflow-y:auto'>
+<b>📊 TRACKING PANEL - ADMIN ONLY</b><br>
+> Total App Opens: ${visits}<br>
+> Total Key Requests: ${allUsers.length}<br><br>
+<b>Recent Users (Last 15):</b><br>${list}
+</div>
+<a href='https://www.instagram.com/alpha_baby_sir/' target='_blank' style='display:block;background:linear-gradient(45deg,#f09433,#dc2743);color:#fff;padding:14px;border-radius:6px;text-decoration:none;font-weight:800;margin:10px 0;text-align:center'>📸 OPEN INSTAGRAM - @alpha_baby_sir</a>
+<a href='https://wa.me/918252004274' target='_blank' style='display:block;background:#25D366;color:#fff;padding:14px;border-radius:6px;text-decoration:none;font-weight:800;margin:10px 0;text-align:center'>💬 CHAT ON WHATSAPP - 8252004274</a>
+<button onclick='location.reload()' style='width:100%;margin-top:10px;background:#000;color:#00ff41;border:1px solid #00ff41;padding:10px;border-radius:5px;cursor:pointer'>LOGOUT</button>
+</div></div>`;
+}else{
+alert("> ACCESS DENIED! Galat Key. Admin se sahi Key lo.");
+}
+}
+function back(){document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none';}
+</script>
+</body>
+</html>
 <!DOCTYPE html>
 <html>
 <head>
