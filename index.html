@@ -1,84 +1,58 @@
- html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALPHA BABY - Login</title>
+<title>ALPHA BABY</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.box{background:#fff;width:100%;max-width:400px;padding:35px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center}
-.logo{font-size:32px;font-weight:900;margin-bottom:5px}
-.logo span{color:#667eea}
-.sub{color:#666;margin-bottom:25px;font-size:14px}
-input{width:100%;padding:14px;border:2px solid #eee;border-radius:10px;margin:10px 0;font-size:16px;outline:none}
-input:focus{border-color:#667eea}
-.btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin:8px 0;transition:0.3s}
-.btn-green{background:#25D366;color:#fff}
-.btn-blue{background:#667eea;color:#fff}
-.btn-green:hover{transform:scale(1.02)}
-.btn-blue:hover{transform:scale(1.02)}
-.note{background:#f0f4ff;padding:12px;border-radius:8px;font-size:12px;color:#555;margin:15px 0;text-align:left}
-.key-info{background:#fff3cd;padding:10px;border-radius:8px;font-size:13px;margin:10px 0}
+.box{background:#fff;width:100%;max-width:380px;padding:30px;border-radius:18px;text-align:center}
+.logo{font-size:30px;font-weight:900}.logo span{color:#667eea}
+input{width:100%;padding:13px;border:2px solid #eee;border-radius:10px;margin:10px 0;font-size:15px}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin:6px 0}
+.btn-green{background:#25D366;color:#fff}.btn-blue{background:#667eea;color:#fff}
+.note{background:#f0f4ff;padding:10px;border-radius:8px;font-size:11px;color:#666;margin-top:12px;text-align:left}
 </style>
 </head>
 <body>
 <div class="box">
 <div class="logo">ALPHA <span>BABY</span></div>
-<p class="sub">Mritunjay's Brand</p>
+<p style="color:#888;margin-bottom:20px;font-size:13px">Mritunjay's Brand</p>
 
-<div id="step1">
-<input type="tel" id="phone" placeholder="Apna Number likho - 8252004274" maxlength="10">
-<button class="btn btn-green" onclick="requestKey()">📱 Admin Se Key Mango (WhatsApp)</button>
-<div class="note">👉 Button dabate hi Mritunjay (8252004274) ke WhatsApp pe message jayega. Wo aapko Key dega.</div>
+<div id="s1">
+<input type="tel" id="phone" placeholder="Apna number likho">
+<button class="btn btn-green" onclick="askKey()">📱 Admin Se Key Mango</button>
+<div class="note">Button dabate hi Admin ke WhatsApp pe request jayega. Bina Admin Key ke login nahi hoga.</div>
 </div>
 
-<div id="step2" style="display:none">
-<div class="key-info">✅ Request bhej diya! Ab Admin se Key leke niche likho.</div>
-<input type="text" id="keyInput" placeholder="Admin ne jo Key diya wo likho - ex: ALPHA2026">
-<button class="btn btn-blue" onclick="verifyKey()">🚀 VERIFY & LOGIN</button>
-<button class="btn" style="background:#eee" onclick="back()">⬅️ Wapas</button>
+<div id="s2" style="display:none">
+<div style="background:#d4edda;color:#155724;padding:8px;border-radius:6px;font-size:12px">✅ Request bhej diya! Admin se Key lo.</div>
+<input type="text" id="k" placeholder="Key yahan likho">
+<button class="btn btn-blue" onclick="check()">🚀 LOGIN</button>
+<button class="btn" style="background:#eee" onclick="location.reload()">Wapas</button>
 </div>
-
-<div class="note">
-<b>Admin Keys (Sirf aapko pata hai):</b><br>
-• ALPHA2026<br>
-• ALPHABABY<br>
-• MRITUNJAY123<br>
-Aap chahe to code me badal sakte ho.
-</div>
-
 </div>
 
 <script>
-const VALID_KEYS = ["ALPHA2026","ALPHABABY","MRITUNJAY123","ALPHA123","123456"];
-const ADMIN_NUMBER = "918252004274";
-
-function requestKey(){
-let phone = document.getElementById('phone').value.trim();
-if(phone.length < 10){ alert("Pehle sahi number likho!"); return; }
-let msg = `Hi Mritunjay Bhai! 👋%0AALPHA BABY me login karna hai.%0A%0AMera Number: ${phone}%0A%0AMujhe login Key de do please! 🙏`;
-let url = `https://wa.me/${ADMIN_NUMBER}?text=${msg}`;
-window.open(url, '_blank');
-document.getElementById('step1').style.display='none';
-document.getElementById('step2').style.display='block';
-localStorage.setItem('req_phone', phone);
+const _0x = ["QWxQSEEyMDI2","QWxQSEFCQUJZ","TVJJVFVOQUpBWTEyMw=="];
+function askKey(){
+let p=document.getElementById('phone').value;
+if(p.length<10){alert("Sahi number likho");return;}
+window.open("https://wa.me/918252004274?text="+encodeURIComponent("Hi Mritunjay Bhai! ALPHA BABY login ke liye Key de do. Mera No: "+p),"_blank");
+document.getElementById('s1').style.display='none';
+document.getElementById('s2').style.display='block';
 }
-
-function verifyKey(){
-let key = document.getElementById('keyInput').value.trim().toUpperCase();
-if(VALID_KEYS.includes(key)){
-alert("✅ Login Successful! Welcome to ALPHA BABY ❤️");
-localStorage.setItem('alpha_user', localStorage.getItem('req_phone'));
-// Yahan apni dusri website ka link daal do
-window.location.href = "https://alphababyms-dot.github.io/Alphababy_Mritunjay-/dashboard.html";
-} else {
-alert("❌ Galat Key! Admin se sahi Key lo. Aapke keys: ALPHA2026, ALPHABABY, MRITUNJAY123");
+function check(){
+let v=document.getElementById('k').value.trim().toUpperCase();
+let ok=_0x.map(x=>atob(x).toUpperCase());
+if(ok.includes(v)){
+alert("✅ Welcome to ALPHA BABY");
+document.body.innerHTML="<div style='height:100vh;display:flex;align-items:center;justify-content:center;background:#667eea;color:#fff;font-size:22px;text-align:center'>Welcome to<br>ALPHA BABY 👑<br><br>Login Successful</div>";
+}else{
+alert("❌ Galat Key! Admin se sahi Key mango.");
 }
-}
-function back(){
-document.getElementById('step1').style.display='block';
-document.getElementById('step2').style.display='none';
 }
 </script>
-</bod
+</body>
+</html>
