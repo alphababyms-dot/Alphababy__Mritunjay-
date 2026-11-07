@@ -69,34 +69,7 @@ function draw(){
 }
 setInterval(draw,35);
 document.getElementById('year').textContent=new Date().getFullYear();
-window.addEventListener('resize',()=>{resize();cols=Math.floor(c.width/fs);drops=new Array(cols).fill(1);});
-</script>
-</body>
-</html>
-    <a class="logo" href="#home">✦ <span>ALPHA BABY</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#about">मेरे बारे में</a>
-      <a href="#skills">मेरी रुचियाँ</a>
-      <a href="#contact">संपर्क</a>
-    </nav>
-  </header>
-<!-- APP INSTALL BUTTON -->
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALPHA BABY - Login</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:system-ui}
-#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
-.login-box{position:relative;z-index:10;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{background:rgba(10,10,10,0.95);border:2px solid #00ff41;border-radius:15px;padding:25px;width:100%;max-width:360px;box-shadow:0 0 30px #00ff4133;text-align:center}
-.card h1{font-size:32px} .card h1 span{color:#00ff41}
-input{width:100%;background:#111;border:1px solid #00ff4133;color:#fff;padding:12px;border-radius:8px;margin:8px 0}
-.btn{width:100%;padding:12px;border-radius:8px;background:#00ff41;color:#000;font-weight:bold;border:none;margin-top:10px;font-size:16px}
-.tab{display:flex;gap:10px;margin:15px 0}
+window.addEventListener('resize',()=>{resize();cols=Math.floor(
 .tab button{flex:1;padding:8px;background:#111;border:1px solid #00ff4133;color:#aaa;border-radius:6px}
 .tab button.active{background:#00ff41;color:#000;border-color:#00ff41}
 .hidden{display:none}
