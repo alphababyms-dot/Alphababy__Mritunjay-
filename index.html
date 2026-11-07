@@ -32,23 +32,14 @@ input::placeholder{color:#00ff41;opacity:0.4}
 
 <div class="counter" id="visitCounter">> SCANNING VISITORS_</div>
 
-<div id="step1">
-<input type="tel" id="phone" placeholder="> ENTER YOUR NUMBER_" maxlength="10">
-<button class="btn btn-green" onclick="requestKey()">> REQUEST ACCESS KEY [WHATSAPP]</button>
-<div class="note">> TARGET: 8252004274<br>> STATUS: ENCRYPTED + TRACKING ACTIVE<br>> NOTE: Bina Key ke Insta/WhatsApp bhi nahi khulega</div>
-</div>
+
 
 <div id="step2" style="display:none">
 <div style="background:rgba(0,255,65,0.1);border:1px solid #00ff41;padding:8px;border-radius:5px;font-size:12px">> REQUEST LOGGED! WAITING FOR ADMIN KEY_</div>
 <input type="text" id="keyInput" placeholder="> ENTER ACCESS KEY_">
 <button class="btn btn-green" onclick="verifyKey()">> DECRYPT & LOGIN</button>
 <button class="btn btn-blue" onclick="back()">> BACK TO HOME</button>
-</div>
-</div>
 
-<script>
-// MATRIX EFFECT
-const canvas=document.getElementById('c');const ctx=canvas.getContext('2d');canvas.width=innerWidth;canvas.height=innerHeight;
 let letters="ALPHABABY01".split("");let drops=Array(Math.floor(canvas.width/14)).fill(1);
 function draw(){ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#00ff41";ctx.font="14px monospace";drops.forEach((y,i)=>{let t=letters[Math.floor(Math.random()*letters.length)];ctx.fillText(t,i*14,y*14);if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0;drops[i]++;});requestAnimationFrame(draw);}draw();
 
@@ -61,36 +52,7 @@ let visits = localStorage.getItem('alpha_visits') || 0;
 visits++; localStorage.setItem('alpha_visits', visits);
 document.getElementById('visitCounter').innerHTML = `> TOTAL VISITS: ${visits} | IP LOGGING: ON | TRACKING: ACTIVE`;
 
-// GOOGLE SHEET LINK - Yahan apna link dalo agar permanent tracking chahiye
-const SHEET_URL = "";
-
-function requestKey(){
-let p=document.getElementById('phone').value.trim();
-if(p.length<10){alert("> ERROR: Valid Number Likh!");return;}
-
-// LOCAL TRACKING SAVE
-let allUsers = JSON.parse(localStorage.getItem('alpha_all_users') || '[]');
-let timeNow = new Date().toLocaleString();
-let userData = {phone:p, time:timeNow, ip:"..."};
-allUsers.push(userData);
-localStorage.setItem('alpha_all_users', JSON.stringify(allUsers));
-
-// IP NIKALO + SHEET ME BHEJO
-fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-  userData.ip = d.ip; userData.city = d.city;
-  localStorage.setItem('alpha_all_users', JSON.stringify(allUsers));
-  if(SHEET_URL){
-    fetch(`${SHEET_URL}?phone=${p}&ip=${d.ip}&city=${d.city}&time=${encodeURIComponent(timeNow)}`, {mode:'no-cors'});
-  }
-}).catch(()=>{});
-
-let msg=`🔥 NEW USER ALPHA BABY 🔥%0A%0A📱 Number: ${p}%0A🕒 Time: ${timeNow}%0A👁️ Total Visits: ${visits}%0A%0AKey mang raha hai!`;
-window.open(`https://wa.me/${ADMIN}?text=${msg}`,'_blank');
-document.getElementById('step1').style.display='none';
-document.getElementById('step2').style.display='block';
-}
-
-function verifyKey(){
+/
 let v=document.getElementById('keyInput').value.trim().toUpperCase();
 let ok=_k.map(x=>atob(x).toUpperCase());
 if(ok.includes(v)){
@@ -111,14 +73,7 @@ document.body.innerHTML=`<div style='position:relative;z-index:2;min-height:100v
 <button onclick='location.reload()' style='width:100%;margin-top:10px;background:#000;color:#00ff41;border:1px solid #00ff41;padding:10px;border-radius:5px;cursor:pointer'>LOGOUT</button>
 </div></div>`;
 }else{
-alert("> ACCESS DENIED! Galat Key. Admin se sahi Key lo.");
-}
-}
-function back(){document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none';}
-</script>
-</body>
-</html>
-<!DOCTYPE html>
+
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
