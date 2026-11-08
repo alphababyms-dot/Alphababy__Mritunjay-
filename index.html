@@ -1,92 +1,14 @@
-
-  <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>AlphaYouTube - Search Gana</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,Arial}
-body{background:#0f0f0f;color:#fff;padding-bottom:65px}
-header{padding:10px 12px;background:#0f0f0f;position:sticky;top:0;z-index:10}
-.top{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:20px;font-weight:700;display:flex;align-items:center;gap:4px}
-.logo b{background:#ff0000;padding:1px 6px;border-radius:5px}
-.searchBox{display:flex;gap:8px;margin-top:10px}
-.searchBox input{flex:1;background:#121212;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:20px;outline:none}
-.searchBox button{background:#272727;border:1px solid #333;color:#fff;padding:10px 18px;border-radius:20px;font-weight:700}
-.chips{display:flex;gap:8px;overflow:auto;padding:10px 12px;white-space:nowrap}
-.chips span{background:#272727;padding:6px 12px;border-radius:8px;font-size:13px}
-.card{margin-bottom:16px}
-.thumb{position:relative;aspect-ratio:16/9;background:#222}
-.thumb img{width:100%;height:100%;object-fit:cover}
-.time{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.85);padding:2px 6px;border-radius:4px;font-size:11px}
-.meta{display:flex;gap:10px;padding:8px 10px}
-.meta img{width:36px;height:36px;border-radius:50%;background:#333}
-.title{font-size:14.5px;line-height:1.3}
-.sub{font-size:12px;color:#aaa;margin-top:2px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;display:flex;justify-content:space-around;padding:6px 0;border-top:1px solid #222}
-.bottom div{text-align:center;font-size:10px;color:#aaa}
-#player{position:fixed;inset:0;background:#000;z-index:100;display:none}
-</style>
-</head>
-<body>
-<header>
-<div class="top">
-<div class="logo"><b>▶</b> AlphaYouTube</div>
-<div>🔔 🔍</div>
-</div>
-<div class="searchBox">
-<input id="q" placeholder="Gana Video Search karo... jaise Kalu Bihari, Pawan Singh, Javed Gani" value="bhojpuri gana">
-<button onclick="searchYT()">Search</button>
-</div>
-</header>
-
-<div class="chips">
-<span onclick="setChip('bhojpuri gana')">Bhojpuri Gana</span>
-<span onclick="setChip('kalu bihari')">Kalu Bihari</span>
-<span onclick="setChip('pawan singh new song')">Pawan Singh</span>
-<span onclick="setChip('javed gani dangal')">Javed Gani</span>
-<span onclick="setChip('bhojpuri video')">Bhojpuri Video</span>
-</div>
-
-<div id="grid" style="padding:0 0"></div>
-
-<div class="bottom">
-<div>🏠<br>Home</div><div>⚡<br>Shorts</div><div>➕<br></div><div>📺<br>Subs</div><div>👤<br>You</div>
-</div>
-
-<div id="player">
-<div style="padding:12px;display:flex;justify-content:space-between"><span onclick="document.getElementById('player').style.display='none'">← Back</span><span>Playing</span></div>
-<div id="box" style="aspect-ratio:16/9;background:#000"></div>
-<h3 id="vt" style="padding:12px;font-size:15px"></h3>
-</div>
-
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AlphaYouTube</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#0f0f0f;color:#fff;padding-bottom:70px}header{position:sticky;top:0;background:#0f0f0f;padding:10px;z-index:10}.logo{font-weight:900;font-size:22px;display:flex;align-items:center;gap:6px}.logo b{background:#f00;padding:2px 8px;border-radius:6px}.s{display:flex;gap:8px;margin-top:10px}.s input{flex:1;background:#222;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:24px;outline:none}.s button{background:#fff;color:#000;border:0;padding:12px 20px;border-radius:24px;font-weight:900}.chips{display:flex;gap:8px;overflow:auto;padding:10px;white-space:nowrap}.chips span{background:#272727;padding:7px 14px;border-radius:16px;font-size:14px}.card{margin-bottom:14px}.thumb{aspect-ratio:16/9;background:#222}.thumb img{width:100%;height:100%;object-fit:cover}.meta{padding:8px 10px}.t{font-size:14px;line-height:1.3}.u{font-size:12px;color:#aaa;margin-top:3px}#pl{position:fixed;inset:0;background:#000;z-index:99;display:none}.bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #222}</style></head><body>
+<header><div class="logo"><b>▶</b>AlphaYouTube</div><div class="s"><input id="q" placeholder="Search Gana... Kalu Bihari, Pawan Singh" value="bhojpuri"><button onclick="src()">Search</button></div></header>
+<div class="chips"><span onclick="chip('bhojpuri gana')">Bhojpuri Gana</span><span onclick="chip('kalu bihari')">Kalu Bihari</span><span onclick="chip('pawan singh')">Pawan Singh</span><span onclick="chip('javed gani')">Javed Gani</span><span onclick="chip('khesari')">Khesari</span></div>
+<div id="g"></div>
+<div class="bottom"><div>🏠<br>Home</div><div>⚡<br>Shorts</div><div>➕</div><div>📺<br>Subs</div><div>👤<br>You</div></div>
+<div id="pl"><div style="padding:12px;display:flex;justify-content:space-between"><span onclick="document.getElementById('pl').style.display='none';document.getElementById('b').innerHTML=''">← Back</span><span>AlphaYouTube</span></div><div id="b" style="aspect-ratio:16/9;background:#000"></div><h3 id="vt" style="padding:12px"></h3></div>
 <script>
-async function searchYT(){
- let q=document.getElementById('q').value;
- let grid=document.getElementById('grid');
- grid.innerHTML='<div style="padding:30px;text-align:center">Searching '+q+'...</div>';
- try{
-  let r=await fetch('https://inv.nadeko.net/api/v1/search?q='+encodeURIComponent(q));
-  let d=await r.json();
-  grid.innerHTML=d.filter(x=>x.type==='video').slice(0,25).map(v=>`
-   <div class="card" onclick="playV('${v.videoId}','${v.title.replace(/'/g,'')}')">
-    <div class="thumb"><img src="https://i.ytimg.com/vi/${v.videoId}/hq720.jpg"><span class="time">${v.lengthSeconds?Math.floor(v.lengthSeconds/60)+':'+String(v.lengthSeconds%60).padStart(2,'0'):''}</span></div>
-    <div class="meta"><img src="https://i.pravatar.cc/100?u=${v.videoId}"><div><div class="title">${v.title}</div><div class="sub">${v.author} • ${v.viewCountText||''} • ${v.publishedText||''}</div></div></div>
-   </div>`).join('');
- }catch(e){
-  grid.innerHTML='<div style="padding:20px">Network slow hai, fir se Search dabao</div>';
- }
-}
-function setChip(t){document.getElementById('q').value=t;searchYT();}
-function playV(id,title){
- document.getElementById('player').style.display='block';
- document.getElementById('vt').innerText=title;
- document.getElementById('box').innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>`;
-}
-searchYT();
-</script>
-</body>
-</html>
-</html>
+const D=[{v:"YQHsXMglC9A",t:"Pawan Singh - Lollypop Lagelu | Superhit Bhojpuri Gana",a:"Pawan Singh Official"},{v:"a3J0M0u8AXo",t:"Pawan Singh - Raate Diya Buta Ke | Bhojpuri Song",a:"Pawan Singh"},{v:"8F4C3R5R9n8",t:"Kalu Bihari - Patli Kamariya Bole Haye Haye | Bhojpuri Hit",a:"Kalu Bihari"},{v:"0J6i1G3N1r4",t:"Kalu Bihari - Bhojpuri Song 2024 New",a:"Kalu Bihari Music"},{v:"09R8_2nJtjg",t:"Javed Gani Dangal Video - Kushti Dangal Live",a:"Javed Gani"},{v:"1w7OgIMMRc4",t:"Khesari Lal Yadav - Thik Hai Bhojpuri Song",a:"Khesari Lal"},{v:"kJQP7kiw5Fk",t:"Khesari Lal - Le Le Aai Coca Cola | Hit Gana",a:"Khesari"},{v:"RgKAFK5djSk",t:"Pawan Singh - Chhalakata Hamro Jawaniya",a:"Bhojpuri Hits"},{v:"hFAOXdGZ-BQ",t:"Bhojpuri Gana - Bhojpuri Video Song 2024",a:"Bhojpuri Songs"},{v:"OPf0YbXqDm0",t:"Bhojpuri Dangal - Javed Gani vs Sikandar",a:"Pehlwani"}];
+function render(L){document.getElementById('g').innerHTML=L.map(x=>`<div class="card" onclick="play('${x.v}','${x.t}')"><div class="thumb"><img src="https://i.ytimg.com/vi/${x.v}/hq720.jpg" onerror="this.src='https://i.ytimg.com/vi/${x.v}/mqdefault.jpg'"></div><div class="meta"><div class="t">${x.t}</div><div class="u">${x.a} • 2.3M views • Bhojpuri Gana</div></div></div>`).join('')}
+function src(){let q=document.getElementById('q').value.toLowerCase();let f=D.filter(x=>x.t.toLowerCase().includes(q)||x.a.toLowerCase().includes(q));render(f.length?f:D)}
+function chip(t){document.getElementById('q').value=t;src()}
+function play(id,title){document.getElementById('pl').style.display='block';document.getElementById('vt').innerText=title;document.getElementById('b').innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>`}
+render(D);
+</script></body></html>
