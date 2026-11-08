@@ -1,14 +1,260 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AlphaYouTube</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#0f0f0f;color:#fff;padding-bottom:70px}header{position:sticky;top:0;background:#0f0f0f;padding:10px;z-index:10}.logo{font-weight:900;font-size:22px;display:flex;align-items:center;gap:6px}.logo b{background:#f00;padding:2px 8px;border-radius:6px}.s{display:flex;gap:8px;margin-top:10px}.s input{flex:1;background:#222;border:1px solid #333;color:#fff;padding:12px 16px;border-radius:24px;outline:none}.s button{background:#fff;color:#000;border:0;padding:12px 20px;border-radius:24px;font-weight:900}.chips{display:flex;gap:8px;overflow:auto;padding:10px;white-space:nowrap}.chips span{background:#272727;padding:7px 14px;border-radius:16px;font-size:14px}.card{margin-bottom:14px}.thumb{aspect-ratio:16/9;background:#222}.thumb img{width:100%;height:100%;object-fit:cover}.meta{padding:8px 10px}.t{font-size:14px;line-height:1.3}.u{font-size:12px;color:#aaa;margin-top:3px}#pl{position:fixed;inset:0;background:#000;z-index:99;display:none}.bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #222}</style></head><body>
-<header><div class="logo"><b>▶</b>AlphaYouTube</div><div class="s"><input id="q" placeholder="Search Gana... Kalu Bihari, Pawan Singh" value="bhojpuri"><button onclick="src()">Search</button></div></header>
-<div class="chips"><span onclick="chip('bhojpuri gana')">Bhojpuri Gana</span><span onclick="chip('kalu bihari')">Kalu Bihari</span><span onclick="chip('pawan singh')">Pawan Singh</span><span onclick="chip('javed gani')">Javed Gani</span><span onclick="chip('khesari')">Khesari</span></div>
-<div id="g"></div>
-<div class="bottom"><div>🏠<br>Home</div><div>⚡<br>Shorts</div><div>➕</div><div>📺<br>Subs</div><div>👤<br>You</div></div>
-<div id="pl"><div style="padding:12px;display:flex;justify-content:space-between"><span onclick="document.getElementById('pl').style.display='none';document.getElementById('b').innerHTML=''">← Back</span><span>AlphaYouTube</span></div><div id="b" style="aspect-ratio:16/9;background:#000"></div><h3 id="vt" style="padding:12px"></h3></div>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090817">
+<title>Alpha Baby Premium</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#090817;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:18px;display:flex;align-items:center;
+ justify-content:space-between;
+ background:#111026;position:sticky;top:0;z-index:5;
+ border-bottom:1px solid #30264b;
+}
+.logo{font-size:20px;font-weight:bold;color:#b99aff}
+.logo span{color:white}
+button{
+ border:0;border-radius:10px;padding:11px 15px;
+ background:#8255ed;color:white;font-weight:bold;
+ cursor:pointer;
+}
+main{padding:18px;max-width:1100px;margin:auto}
+.hero{
+ padding:25px;border-radius:18px;
+ background:linear-gradient(120deg,#35205e,#17152e,#102c42);
+ margin-bottom:22px;
+}
+.hero h1{font-size:29px;margin:8px 0}
+.hero p{color:#d4cbea}
+.search{
+ width:100%;padding:15px;border-radius:12px;
+ border:1px solid #41365d;background:#17152a;
+ color:white;font-size:16px;margin:12px 0 18px;
+}
+.categories{display:flex;gap:9px;overflow:auto;padding:5px 0 15px}
+.categories button{white-space:nowrap;background:#24213a}
+.categories button.active{background:#8255ed}
+h2{font-size:20px}
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:13px;
+}
+.card{
+ background:#17152a;border:1px solid #302a47;
+ border-radius:14px;overflow:hidden;cursor:pointer;
+}
+.card img{
+ width:100%;aspect-ratio:16/9;object-fit:cover;
+ background:#29233d;
+}
+.info{padding:11px}
+.info b{font-size:14px;line-height:1.5}
+.info small{display:block;color:#aaa;margin-top:6px}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{padding:8px;font-size:12px}
+#player{
+ display:none;position:fixed;inset:0;
+ z-index:10;background:#090817;padding:18px;
+ overflow:auto;
+}
+.playerbox{max-width:850px;margin:35px auto}
+iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:14px}
+.close{background:#39334d;margin-bottom:15px}
+.empty{
+ text-align:center;padding:35px 15px;
+ background:#17152a;border-radius:15px;color:#bbb;
+}
+footer{text-align:center;padding:25px;color:#777;font-size:12px}
+@media(min-width:700px){
+ .grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">ALPHA BABY <span>PREMIUM</span></div>
+ <button onclick="addVideo()">+ Add Video</button>
+</header>
+
+<main>
+ <section class="hero">
+  <div>✦ YOUR PERSONAL VIDEO SPACE</div>
+  <h1>Welcome to Alpha Baby</h1>
+  <p>Discover. Watch. Enjoy.</p>
+  <button onclick="addVideo()">Explore Videos →</button>
+ </section>
+
+ <input id="search" class="search"
+ placeholder="🔍 Search your videos..."
+ oninput="render()">
+
+ <div class="categories">
+  <button class="active" onclick="filter('All',this)">All</button>
+  <button onclick="filter('Music',this)">Music</button>
+  <button onclick="filter('Education',this)">Education</button>
+  <button onclick="filter('Entertainment',this)">Entertainment</button>
+  <button onclick="filter('Favorites',this)">♥ Favorites</button>
+ </div>
+
+ <h2>▶ Your Video Library</h2>
+ <div class="grid" id="videos"></div>
+</main>
+
+<div id="player">
+ <div class="playerbox">
+  <button class="close" onclick="closePlayer()">← Back</button>
+  <div id="videoFrame"></div>
+  <h2 id="videoTitle"></h2>
+  <p style="color:#aaa">ALPHA BABY PREMIUM</p>
+ </div>
+</div>
+
+<footer>© 2026 Alpha Baby Premium | Made with ♥</footer>
+
 <script>
-const D=[{v:"YQHsXMglC9A",t:"Pawan Singh - Lollypop Lagelu | Superhit Bhojpuri Gana",a:"Pawan Singh Official"},{v:"a3J0M0u8AXo",t:"Pawan Singh - Raate Diya Buta Ke | Bhojpuri Song",a:"Pawan Singh"},{v:"8F4C3R5R9n8",t:"Kalu Bihari - Patli Kamariya Bole Haye Haye | Bhojpuri Hit",a:"Kalu Bihari"},{v:"0J6i1G3N1r4",t:"Kalu Bihari - Bhojpuri Song 2024 New",a:"Kalu Bihari Music"},{v:"09R8_2nJtjg",t:"Javed Gani Dangal Video - Kushti Dangal Live",a:"Javed Gani"},{v:"1w7OgIMMRc4",t:"Khesari Lal Yadav - Thik Hai Bhojpuri Song",a:"Khesari Lal"},{v:"kJQP7kiw5Fk",t:"Khesari Lal - Le Le Aai Coca Cola | Hit Gana",a:"Khesari"},{v:"RgKAFK5djSk",t:"Pawan Singh - Chhalakata Hamro Jawaniya",a:"Bhojpuri Hits"},{v:"hFAOXdGZ-BQ",t:"Bhojpuri Gana - Bhojpuri Video Song 2024",a:"Bhojpuri Songs"},{v:"OPf0YbXqDm0",t:"Bhojpuri Dangal - Javed Gani vs Sikandar",a:"Pehlwani"}];
-function render(L){document.getElementById('g').innerHTML=L.map(x=>`<div class="card" onclick="play('${x.v}','${x.t}')"><div class="thumb"><img src="https://i.ytimg.com/vi/${x.v}/hq720.jpg" onerror="this.src='https://i.ytimg.com/vi/${x.v}/mqdefault.jpg'"></div><div class="meta"><div class="t">${x.t}</div><div class="u">${x.a} • 2.3M views • Bhojpuri Gana</div></div></div>`).join('')}
-function src(){let q=document.getElementById('q').value.toLowerCase();let f=D.filter(x=>x.t.toLowerCase().includes(q)||x.a.toLowerCase().includes(q));render(f.length?f:D)}
-function chip(t){document.getElementById('q').value=t;src()}
-function play(id,title){document.getElementById('pl').style.display='block';document.getElementById('vt').innerText=title;document.getElementById('b').innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>`}
-render(D);
-</script></body></html>
+let videos=JSON.parse(localStorage.getItem('abVideos')||'[]');
+let favorites=JSON.parse(localStorage.getItem('abFav')||'[]');
+let category='All';
+
+function save(){
+ localStorage.setItem('abVideos',JSON.stringify(videos));
+ localStorage.setItem('abFav',JSON.stringify(favorites));
+}
+
+function getId(url){
+ try{
+  let u=new URL(url);
+  if(u.hostname==='youtu.be')
+   return u.pathname.slice(1).split('/')[0];
+  if(u.searchParams.get('v'))
+   return u.searchParams.get('v');
+  let m=u.pathname.match(/\/(?:embed|shorts)\/([^/?]+)/);
+  return m?m[1]:'';
+ }catch(e){return '';}
+}
+
+function addVideo(){
+ let url=prompt('YouTube Video Link paste karein:');
+ if(!url)return;
+ let id=getId(url);
+ if(!/^[a-zA-Z0-9_-]{11}$/.test(id)){
+  alert('Valid YouTube video link paste karein.');
+  return;
+ }
+ let title=prompt('Video ka naam likhein:');
+ if(!title)return;
+ let type=prompt('Category: Music, Education, Entertainment','Entertainment');
+ videos.unshift({
+  id:id,title:title,
+  type:type||'Entertainment'
+ });
+ save();render();
+}
+
+function filter(type,btn){
+ category=type;
+ document.querySelectorAll('.categories button')
+ .forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ render();
+}
+
+function render(){
+ let q=document.getElementById('search').value.toLowerCase();
+ let list=videos.filter(v=>{
+  let match=v.title.toLowerCase().includes(q);
+  let cat=category==='All'||v.type.toLowerCase()===category.toLowerCase();
+  if(category==='Favorites')cat=favorites.includes(v.id);
+  return match&&cat;
+ });
+
+ let box=document.getElementById('videos');
+ box.innerHTML='';
+
+ if(!list.length){
+  box.innerHTML='<div class="empty">No videos yet.<br><br>Tap + Add Video to add your first video.</div>';
+  return;
+ }
+
+ list.forEach(v=>{
+  let card=document.createElement('div');
+  card.className='card';
+
+  let img=document.createElement('img');
+  img.src='https://img.youtube.com/vi/'+v.id+'/hqdefault.jpg';
+  img.alt=v.title;
+
+  let info=document.createElement('div');
+  info.className='info';
+
+  let title=document.createElement('b');
+  title.textContent=v.title;
+
+  let small=document.createElement('small');
+  small.textContent='YouTube • '+v.type;
+
+  let actions=document.createElement('div');
+  actions.className='actions';
+
+  let play=document.createElement('button');
+  play.textContent='▶ Play';
+  play.onclick=()=>openPlayer(v);
+
+  let fav=document.createElement('button');
+  fav.textContent=favorites.includes(v.id)?'♥ Saved':'♡ Save';
+  fav.onclick=()=>{
+   if(favorites.includes(v.id)){
+    favorites=favorites.filter(x=>x!==v.id);
+   }else{favorites.push(v.id);}
+   save();render();
+  };
+
+  let del=document.createElement('button');
+  del.textContent='Remove';
+  del.style.background='#39334d';
+  del.onclick=()=>{
+   if(confirm('Remove this video?')){
+    videos=videos.filter(x=>x.id!==v.id);
+    favorites=favorites.filter(x=>x!==v.id);
+    save();render();
+   }
+  };
+
+  actions.append(play,fav,del);
+  info.append(title,small,actions);
+  card.append(img,info);
+  card.onclick=e=>{
+   if(e.target.tagName==='IMG')openPlayer(v);
+  };
+  box.append(card);
+ });
+}
+
+function openPlayer(v){
+ document.getElementById('videoTitle').textContent=v.title;
+ document.getElementById('videoFrame').innerHTML='';
+ let frame=document.createElement('iframe');
+ frame.src='https://www.youtube-nocookie.com/embed/'+
+ v.id+'?autoplay=1&rel=0';
+ frame.allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share';
+ frame.allowFullscreen=true;
+ document.getElementById('videoFrame').append(frame);
+ document.getElementById('player').style.display='block';
+}
+
+function closePlayer(){
+ document.getElementById('player').style.display='none';
+ document.getElementById('videoFrame').innerHTML='';
+}
+
+render();
+</script>
+</body>
+</html>
