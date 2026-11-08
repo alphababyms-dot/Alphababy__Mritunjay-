@@ -1,13 +1,14 @@
-}
+{
   "name": "Alpha Baby 82",
   "short_name": "AlphaBaby",
-  "start_url": "./",
+  "description": "Alpha Baby 82 Official App - No Watermark APK",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#00ff41",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "./icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
