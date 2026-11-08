@@ -1,0 +1,16 @@
+{
+  "name": "Alpha Baby 82",
+  "short_name": "AlphaBaby",
+  "description": "Alpha Baby 82 Official App",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6600",
+  "icons": [
+    {
+      "src": "https://alphababyms-dot.github.io/Alphababy_82/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
