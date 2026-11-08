@@ -1,41 +1,70 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
+<title>AlphaYouTube - No Ads Lifetime Free</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ALPHA BABY SERVICES - Official</title>
-<meta name="description" content="ALPHA BABY SERVICES by Mritunjay - Website 100Rs, 10k Followers, Telegram Premium, Gift Cards. Contact on WhatsApp.">
-<meta name="keywords" content="Alpha Baby, Alphababy Mritunjay, Alpha Baby Services">
-<meta name="robots" content="index, follow">
-
 <style>
-body{margin:0;background:#000;color:#fff;font-family:monospace;display:flex;justify-content:center;padding:20px}
-.card{border:2px solid #00ff41;max-width:400px;width:100%;padding:20px;border-radius:15px;box-shadow:0 0 25px #00ff41;background:#050505}
-h1{text-align:center;color:#00ff41;line-height:1.1;text-shadow:0 0 15px #00ff41;margin-bottom:15px}
-.item{border:1px solid #00ff41;padding:13px;margin:10px 0;border-radius:10px;text-align:center;background:#0a0a0a}
-.item b{color:#00ff41}
-.wa{display:block;background:#00ff41;color:#000;text-align:center;padding:16px;border-radius:10px;font-weight:900;text-decoration:none;margin-top:20px;box-shadow:0 0 15px #00ff41}
-.foot{text-align:center;font-size:11px;opacity:0.5;margin-top:15px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,Arial}
+body{background:#0f0f0f;color:#fff}
+header{position:sticky;top:0;z-index:10;background:#0f0f0f;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:24px;display:flex;align-items:center;gap:8px}
+.logo i{background:#ff0000;width:32px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:14px}
+.free{color:#00ff88;border:1px solid #00ff88;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:20px}
+.card{background:#181818;border-radius:12px;overflow:hidden;cursor:pointer}
+.thumb{aspect-ratio:16/9;background:#222;position:relative}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:8px;left:8px;background:red;padding:3px 6px;font-size:10px;border-radius:4px;font-weight:700}
+.info{padding:10px} .t{font-size:14px;font-weight:500} .s{font-size:12px;color:#aaa;margin-top:3px}
+#player{position:fixed;inset:0;background:#000;z-index:100;display:none}
 </style>
 </head>
 <body>
-<div class="card">
-<h1>👑<br>ALPHA<br>BABY<br>SERVICES<br>👑</h1>
+<header>
+<div class="logo"><i>▶</i> AlphaYouTube</div>
+<input id="search" placeholder="Search AlphaYouTube" style="flex:1;max-width:500px;margin:0 20px;background:#121212;border:1px solid #333;color:#fff;padding:10px 16px;border-radius:20px">
+<div class="free">LIFETIME FREE</div>
+</header>
 
-<div class="item">🌐 Khudka Website Banwao <b>100Rs</b></div>
-<div class="item">📈 10k Followers (Organic) <b>100Rs 🔥</b></div>
-<div class="item">📱 Insta ID Recover <b>PAID</b></div>
-<div class="item">🎨 Logo & Poster Design <b>50Rs</b></div>
-<div class="item">💾 All DATA Recover <b>200Rs</b></div>
-<div class="item">🎁 Amazon Gift Card 7k <b>200Rs</b></div>
-<div class="item">🎁 Zepto Gift Card 5k <b>300Rs</b></div>
-<div class="item">📲 Telegram Premium <b>50Rs</b></div>
-<div class="item">📞 Fake Numbers For Apps <b>50Rs</b></div>
-
-<a class="wa" href="https://wa.me/918252004274?text=Hi%20ALPHA%20BABY%20Sir,%20Mujhe%20Service%20Chahiye">WHATSAPP PE CONTACT KARO</a>
-
-<div class="foot">Instagram: @alpha_baby_sir | ALPHA BABY - Mritunjay's Official</div>
+<div style="margin:12px 20px;background:#151515;border:1px solid #00ff88;padding:10px 14px;border-radius:10px;font-size:13px">
+✅ <b>GUARANTEE:</b> AlphaYouTube kabhi paisa nahi lega | No Ads | No Subscription | Free Forever - by Mritunjay, Kishanganj
 </div>
+
+<div class="grid" id="grid"></div>
+
+<div id="player">
+<div style="padding:12px"><span onclick="document.getElementById('player').style.display='none'" style="cursor:pointer;font-weight:700">← Back to AlphaYouTube</span> <span style="float:right;background:red;padding:4px 10px;border-radius:20px;font-size:12px">NO ADS PLAYING</span></div>
+<div id="box" style="width:100%;aspect-ratio:16/9;background:#000"></div>
+<h2 id="title" style="padding:14px 20px"></h2>
+</div>
+
+<script>
+const videos=[
+{id:'dQw4w9WgXcQ',title:'AlphaYouTube Official Trailer - No Ads Lifetime Free',thumb:'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg'},
+{id:'kJQP7kiw5Fk',title:'Kishanganj Vlog - Mritunjay Kumar First Video',thumb:'https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg'},
+{id:'jNQXAC9IVRw',title:'How To Create YouTube Clone Without Ads',thumb:'https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg'},
+]
+function render(list){
+let g=document.getElementById('grid'); g.innerHTML=''
+list.forEach(v=>{
+g.innerHTML+=`<div class="card" onclick="playVideo('${v.id}')">
+<div class="thumb"><img src="${v.thumb}"><span class="badge">NO ADS • FREE</span></div>
+<div class="info"><div class="t">${v.title}</div><div class="s">AlphaYouTube • 100K views • Lifetime Free</div></div></div>`
+})
+}
+function playVideo(id){
+let v=videos.find(x=>x.id==id)
+document.getElementById('player').style.display='block'
+document.getElementById('title').innerText=v.title + ' | AlphaYouTube - Free Forever'
+document.getElementById('box').innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>`
+}
+render(videos)
+document.getElementById('search').addEventListener('input',e=>{
+let q=e.target.value.toLowerCase()
+let f=videos.filter(x=>x.title.toLowerCase().includes(q))
+render(f.length?f:videos)
+})
+</script>
 </body>
 </html>
